@@ -1,4 +1,3 @@
-import json
 import requests
 
 
@@ -7,24 +6,36 @@ class PostcodeApi:
         pass
 
     def get_postcode_info(self, postcode):
-        response = requests.get(f'https://api.postcodes.io/postcodes/{postcode}')
-        if response.status_code == 200:
-            return response.json()
-        else:
-            return None
+        try:
+            response = requests.get(f'https://api.postcodes.io/postcodes/{postcode}')
+            if response.status_code == 200:
+                return response.json()
+            else:
+                return None
+        except requests.exceptions.RequestException as e:
+            print(f"Error: {e}")
+
 
     def get_postcode_info_random(self):
-        response = requests.get('https://api.postcodes.io/random/postcodes')
-        if response.status_code == 200:
-            return response.json()
-        else:
-            return None
+        try:
+            response = requests.get('https://api.postcodes.io/random/postcodes')
+            if response.status_code == 200:
+                return response.json()
+            else:
+                return None
+        except requests.exceptions.RequestException as e:
+            print(f"Error: {e}")
+
 
     def create_postcode(self, postcode_data):
-        response = requests.post('https://api.postcodes.io/postcodes/', json=postcode_data)
-        if response.status_code == 201:
-            return response.json()
-        else:
+        try:
+            response = requests.post('https://api.postcodes.io/postcodes/', json=postcode_data)
+            if response.status_code == 201:
+                return response.json()
+            else:
+                return None
+        except requests.exceptions.RequestException as e:
+            print(f"Error: {e}")
             return None
 
 
