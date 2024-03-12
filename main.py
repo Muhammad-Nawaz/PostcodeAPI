@@ -1,6 +1,7 @@
 import json
 import requests
 
+
 class PostcodeApi:
     def __init__(self):
         pass
@@ -8,27 +9,31 @@ class PostcodeApi:
     def get_postcode_info(self, postcode):
         response = requests.get(f'https://api.postcodes.io/postcodes/{postcode}')
         if response.status_code == 200:
-            return print(response.json())
+            return response.json()
         else:
             return None
 
     def get_postcode_info_random(self):
         response = requests.get('https://api.postcodes.io/random/postcodes')
         if response.status_code == 200:
-            return print(response.json())
+            return response.json()
         else:
             return None
 
     def create_postcode(self, postcode_data):
         response = requests.post('https://api.postcodes.io/postcodes/', json=postcode_data)
         if response.status_code == 201:
-            return print(response.json())
+            return response.json()
         else:
             return None
 
 
-postcode = PostcodeApi()postcode.get_postcode_info('UB24PG')
-postcode.get_postcode_info_random()
+postcode = PostcodeApi()
+postcode_info = postcode.get_postcode_info('UB24PG')
+print(postcode_info)
+
+random_postcode = postcode.get_postcode_info_random()
+print(random_postcode)
 
 postcode_data = {
     "postcode": "SW1A1AA",
@@ -65,4 +70,5 @@ postcode_data = {
         "nuts": "UKI32"
     }
 }
-postcode.create_postcode(postcode_data)
+create_postcode = postcode.create_postcode(postcode_data)
+print(create_postcode)
